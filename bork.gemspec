@@ -14,4 +14,6 @@ Gem::Specification.new do |gem|
   gem.name          = "bork"
   gem.require_paths = ["lib"]
   gem.version       = Bork::VERSION
+
+  gem.add_dependency 'thor', '~>0.14'
 end
