@@ -1,6 +1,6 @@
 # Bork
 
-Bork bork bork! For server management so simple, even (http://youtu.be/B7UmUX68KtE)[this guy] can do it.
+Bork bork bork! For server management so simple, even [this guy](http://youtu.be/B7UmUX68KtE) can do it.
 
 ## Installation
 
