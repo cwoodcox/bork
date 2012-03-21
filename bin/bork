@@ -2,5 +2,4 @@
 
 require 'bork/cli'
 
-Signal.trap("INT") { puts; exit(1) }
-Bork::CLI.new(ARGV).run!
+Bork::CLI.start
