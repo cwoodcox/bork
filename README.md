@@ -1,6 +1,6 @@
 # Bork
 
-TODO: Write a gem description
+Bork bork bork! For server management so simple, even (http://youtu.be/B7UmUX68KtE)[this guy] can do it.
 
 ## Installation
 
@@ -18,7 +18,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Okay, nothing really works at all. I take pull requests!
 
 ## Contributing
 
