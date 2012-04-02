@@ -5,10 +5,12 @@ module Bork
     include Thor::Actions
     check_unknown_options!
 
+    source_root('templates')
+
     desc "init", "Create a bork configuration in the current project/directory"
     def init
-      run "mkdir -p config"
-      run "touch config/bork.rb"
+      empty_directory "config"
+      template "config/bork.rb.erb", "config/bork.rb"
     end
   end
 end
