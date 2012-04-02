@@ -5,7 +5,7 @@ module Bork
     include Thor::Actions
     check_unknown_options!
 
-    source_root('templates')
+    source_root File.join(File.dirname(__FILE__), '..', '..', 'templates')
 
     desc "init", "Create a bork configuration in the current project/directory"
     def init
