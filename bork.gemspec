@@ -16,6 +16,6 @@ Gem::Specification.new do |gem|
   gem.version       = Bork::VERSION
 
   gem.add_dependency 'thor', '~>0.14'
-  gem.add_dependency 'fog', '~>1.2.0'
+  gem.add_dependency 'fog', '~>1.3.0'
   gem.add_dependency 'net-ssh', '~>2.3.0'
 end
