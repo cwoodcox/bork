@@ -17,5 +17,13 @@ module Bork
     def image_id(id)
       @image_id = id.to_i
     end
+
+    def flavor_id(id)
+      @flavor_id = id.to_i
+    end
+
+    def packages(package_list)
+      @packages << package_list
+    end
   end
 end

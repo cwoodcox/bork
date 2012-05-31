@@ -4,11 +4,18 @@ module Bork
 
     def initialize(name, *options, &block)
       @name = name.to_sym
+      @servers = {}
+
+      instance_eval &block
     end
 
     def server(name, &block)
+      require 'bork/server'
+
       if @servers.include? name
-        @environments[name] = Bork::Server.new(new, &block)
+        @servers[name] = @servers[name].update(name, &block)
+      else
+        @servers[name] = Bork::Server.new(name, &block)
       end
     end
   end
