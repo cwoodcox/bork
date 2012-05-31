@@ -1,9 +1,15 @@
 module Bork
   class Environment
-    @config = Config.new
+    attr_accessor :name
 
-    def server(&block)
-      @config.instance_eval(block)
+    def initialize(name, *options, &block)
+      @name = name.to_sym
+    end
+
+    def server(name, &block)
+      if @servers.include? name
+        @environments[name] = Bork::Server.new(new, &block)
+      end
     end
   end
 end
