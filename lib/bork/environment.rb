@@ -9,13 +9,15 @@ module Bork
       instance_eval &block
     end
 
-    def server(name, &block)
+    def server(role, &block)
       require 'bork/server'
 
-      if @servers.include? name
-        @servers[name] = @servers[name].update(name, &block)
-      else
-        @servers[name] = Bork::Server.new(name, &block)
+      @servers[role] = Bork::Server.new(role, :environment => self, &block)
+    end
+
+    def build!
+      @servers.each do |role,server|
+        server.create!
       end
     end
   end
