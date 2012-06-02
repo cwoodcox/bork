@@ -6,4 +6,12 @@ class Array
       {}
     end
   end
+
+  def find(&block)
+    if i = find_index(&block)
+      at(i)
+    else
+      false
+    end  
+  end
 end

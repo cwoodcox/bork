@@ -1,11 +1,13 @@
 require 'bork/version'
-require 'bork/logger'
 require 'bork/core/array'
+require 'bork/errors'
 require 'fog'
 
 module Bork
   class << self
     attr_reader :environments
+
+    Fog.credentials[:public_key_path] = "~/.ssh/id_rsa.pub"
 
     def logger
       return @logger if @logger 

@@ -1,0 +1,1 @@
+class ServerNotFoundError < StandardError; end
