@@ -1,6 +1,6 @@
 module Bork
   class Environment
-    attr_accessor :name
+    attr_accessor :servers, :name
 
     def initialize(name, *options, &block)
       @name = name.to_sym

@@ -11,8 +11,8 @@ module Bork
       @name = "#{@environment.name}.#{@role}.#{Bork.application}.saxtonhorne.net" # TODO: Don't do this.
       @metadata = {
         'application' => Bork.application,
-        'role' => role,
-        'environment' => environment.name
+        'role' => role.to_s,
+        'environment' => environment.name.to_s
       }
 
       if block.arity == 1
@@ -44,7 +44,9 @@ module Bork
 
     def instance
       return @instance if linked?
-      @instance = environment.servers.find do |server|
+      @linked = false
+
+      @instance = Bork.provider.servers.find do |server|
         @linked = true if server.metadata == metadata
       end
     end
