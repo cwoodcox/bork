@@ -16,7 +16,6 @@ module Bork
       @servers[role] = Bork::Server.new(role, :environment => self, &block)
     end
 
-    # TODO: protected?
     def build!
       @servers.each do |role,server|
         server.bootstrap!
@@ -25,7 +24,7 @@ module Bork
 
     def restore!
       link_provider
-      @servers.select { |role,server| server.linked? }.each do |role,server|
+      @servers.select { |role,server| !server.linked? }.each do |role,server|
         Bork.logger.info(role.to_s) { "Existing instance not found, bootstrapping server." }
         server.bootstrap
       end

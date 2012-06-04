@@ -6,7 +6,7 @@ module Bork
       options = options.extract_options!
 
       @role = role.to_sym
-      @packages = []
+      @packages = %w( build-essential zlib1g-dev libpcre3-dev git-core libxml2-dev libxslt-dev libmysqlclient-dev mysql-client openssl libssl-dev)
       @environment = options.delete(:environment)
       @name = "#{@environment.name}.#{@role}.#{Bork.application}.saxtonhorne.net" # TODO: Don't do this.
       @metadata = {
@@ -31,11 +31,12 @@ module Bork
     end
 
     def packages(package_list)
-      @packages << package_list
+      @packages += package_list
     end
 
     def bootstrap!
-      @instance = Bork.provider.servers.bootstrap(to_params)
+      @instance = do_bootstrap # We're providing our own bootstrap because I want some reporting
+      @linked = true
     end
 
     def linked?
@@ -51,7 +52,30 @@ module Bork
       end
     end
 
+    def install_packages
+      instance.ssh('apt-get -qq update')
+      instance.ssh("apt-get -qqy install #{@packages.join(" ")}")
+    end
+
     private
+    def do_bootstrap
+      log "Creating server"
+      server = Bork.provider.servers.create(to_params)
+
+      log "Waiting for server to become ready"
+      server.wait_for { ready? }
+
+      log "Setting up keypairs and stuff"
+      server.setup(:password => server.password)
+
+      log "Bootstrapped!"
+      server
+    end
+
+    def log(message)
+      Bork.logger.info(role) { message }
+    end
+
     def to_params
       {
         :name => name,

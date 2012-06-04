@@ -1,6 +1,7 @@
 require 'bork/version'
 require 'bork/core/array'
 require 'bork/errors'
+require 'logger'
 require 'fog'
 
 module Bork
@@ -42,6 +43,12 @@ module Bork
     def bootstrap!
       @environments.each do |name,env|
         env.build!
+      end
+    end
+
+    def restore!
+      @environments.each do |name,env|
+        env.restore!
       end
     end
   end
