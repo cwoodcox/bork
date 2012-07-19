@@ -1,1 +1,4 @@
-class ServerNotFoundError < StandardError; end
+module Bork
+  class ServerNotFoundError < StandardError; end
+end
+

@@ -6,9 +6,12 @@ module Bork
       options = options.extract_options!
 
       @role = role.to_sym
-      @packages = %w( build-essential zlib1g-dev libpcre3-dev git-core libxml2-dev libxslt-dev libmysqlclient-dev mysql-client openssl libssl-dev)
+      @packages = %w( build-essential zlib1g-dev libpcre3-dev git-core libxml2-dev libxslt-dev openssl libssl-dev curl )
+      @after_install = []
+      
       @environment = options.delete(:environment)
       @name = "#{@environment.name}.#{@role}.#{Bork.application}.saxtonhorne.net" # TODO: Don't do this.
+
       @metadata = {
         'application' => Bork.application,
         'role' => role.to_s,
@@ -34,6 +37,16 @@ module Bork
       @packages += package_list
     end
 
+    def after_install(*args)
+      options = args.extract_options!
+      return @after_install if args.length == 0
+
+      args.each do |arg|
+        arg.split("\n").each do |cmd|
+          @after_install << cmd.strip
+        end
+      end
+    end
     def bootstrap!
       @instance = do_bootstrap # We're providing our own bootstrap because I want some reporting
       @linked = true
@@ -53,10 +66,24 @@ module Bork
     end
 
     def install_packages
+      log "Updating apt"
       instance.ssh('apt-get -qq update')
+
+      log "Installing packages"
       instance.ssh("apt-get -qqy install #{@packages.join(" ")}")
     end
 
+    def setup!
+      install_packages
+      log "Running post-install hooks"
+
+      @after_install.each do |cmd|
+        log cmd
+        instance.ssh cmd do |output|
+          log output
+        end
+      end
+    end
     private
     def do_bootstrap
       log "Creating server"

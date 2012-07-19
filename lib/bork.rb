@@ -51,5 +51,11 @@ module Bork
         env.restore!
       end
     end
+
+    def setup!
+      @environments.each do |name,env|
+        env.setup!
+      end
+    end
   end
 end

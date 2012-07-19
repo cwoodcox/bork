@@ -1,7 +1,39 @@
-require 'bork/config'
+require 'bork'
 
 # This is the config file for bork, which will set up a bunch of cloud instances and 
 # install crap on them to make them useful for hosting apps and crap. Maybe one day it
 # will be useful for more than me.
 
+# Define your servers here. Example follows
+# Bork.configure do 
+#   application 'myapp' 
+#   provider :rackspace, :rackspace_api_key => 'YOUR_API_KEY', :rackspace_username => 'YOUR_USERNAME' 
 
+#   environment :staging do 
+#     server :app do 
+#     image 119 
+#     flavor 2 
+
+#     packages %w( nginx-common mysql-client libmysqlclient-dev nodejs-dev libsqlite3-dev ) 
+#     after_install %q(curl http://pyyaml.org/download/libyaml/yaml-0.1.4.tar.gz | tar -xz 
+#                      sh -c "cd yaml-0.1.4 && ./configure --prefix=/usr/local && make && make install") 
+
+#     after_install %q(curl http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p0.tar.gz | tar -xz 
+#                      sh -c "cd ruby-1.9.3-p0 && ./configure --disable-install-doc && make && make install" 
+#                      gem install bundler --no-rdoc --no-ri) 
+
+#     after_install %q(useradd -mUG www-data,sudo deploy 
+#                      cp -R ~/.ssh/ /home/deploy/ 
+#                      chown -R deploy:deploy /home/deploy 
+#                      chmod -R 0700 /home/deploy/.ssh)  
+
+#     end 
+#   end 
+
+# environment :production do
+#   server :app do
+#     image_id 119
+#     flavor_id 2
+#   end
+# end
+end

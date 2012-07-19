@@ -25,8 +25,19 @@ module Bork
     def restore!
       link_provider
       @servers.select { |role,server| !server.linked? }.each do |role,server|
-        Bork.logger.info(role.to_s) { "Existing instance not found, bootstrapping server." }
-        server.bootstrap
+        raise Bork::ServerNotFoundError
+      end
+    end
+
+    def setup!
+      link_provider
+      @servers.select { |role,server| !server.linked? }.each do |role,server|
+        Bork.logger.info(role.to_s) { "Existing instance not found, bootstrapping" }
+        server.bootstrap!
+      end
+
+      @servers.each do |role, server|
+        server.setup!
       end
     end
 
