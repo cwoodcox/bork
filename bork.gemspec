@@ -4,8 +4,8 @@ require File.expand_path('../lib/bork/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["Corey Woodcox"]
   gem.email         = ["corey.woodcox@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{Bork is my attempt at server bootstrapping.}
+  gem.summary       = %q{Maybe one day it will be cooler.}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($\)
